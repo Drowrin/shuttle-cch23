@@ -9,7 +9,8 @@ test:
         cargo shuttle run > /dev/null &
         sleep 2
         echo -e "\n${PURPLE}Executing HURL Tests${NO_COLOR}"
-        hurl --continue-on-error --color --test --error-format long ./tests/*.hurl
+        cd ./tests/
+        hurl --continue-on-error --color --test --error-format long *.hurl
         kill $!
     fi
 
