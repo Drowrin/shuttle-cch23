@@ -5,6 +5,7 @@ mod day01;
 mod day04;
 mod day06;
 mod day07;
+mod day08;
 
 #[shuttle_runtime::main]
 async fn main() -> shuttle_axum::ShuttleAxum {
@@ -14,5 +15,6 @@ async fn main() -> shuttle_axum::ShuttleAxum {
         .merge(day04::get_routes())
         .merge(day06::get_routes())
         .merge(day07::get_routes())
+        .merge(day08::get_routes())
         .into())
 }
