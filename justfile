@@ -6,11 +6,10 @@ PURPLE := '\033[0;35m'
 test:
     #!sh
     if cargo build; then
-        cargo shuttle run > /dev/null &
-        sleep 2
-        echo -e "\n${PURPLE}Executing HURL Tests${NO_COLOR}"
-        cd ./tests/
-        hurl --continue-on-error --color --test --error-format long *.hurl
+        cargo shuttle run &
+        sleep 3
+        echo -e "\n${PURPLE}Executing Tests${NO_COLOR}"
+        cch23-validator --all
         kill $!
     fi
 
