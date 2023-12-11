@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
 struct Reindeer {
-    strength: u32,
+    strength: u64,
     // validate name even though we don't use it
     // that way our API remains stable if we need it in the future
     #[serde(rename = "name")]
@@ -14,21 +14,21 @@ struct Reindeer {
 async fn strength(Json(herd): Json<Vec<Reindeer>>) -> String {
     herd.iter()
         .map(|reindeer| reindeer.strength)
-        .sum::<u32>()
+        .sum::<u64>()
         .to_string()
 }
 
 #[derive(Deserialize)]
 struct ContestReindeer {
     name: String,
-    strength: u32,
-    speed: f32,
-    height: u32,
-    antler_width: u32,
-    snow_magic_power: u32,
+    strength: u64,
+    speed: f64,
+    height: u64,
+    antler_width: u64,
+    snow_magic_power: u64,
     favorite_food: String,
     #[serde(rename = "cAnD13s_3ATeN-yesT3rdAy")]
-    consumed: u32,
+    consumed: u64,
 }
 
 #[derive(Serialize)]

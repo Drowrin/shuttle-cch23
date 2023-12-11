@@ -4,8 +4,8 @@ use std::{num::ParseIntError, ops::BitXor};
 async fn cube_bits(Path(path): Path<String>) -> Result<String, (StatusCode, String)> {
     Ok(path
         .split("/")
-        .map(|s| s.parse::<u32>())
-        .collect::<Result<Vec<u32>, ParseIntError>>()
+        .map(|s| s.parse::<i64>())
+        .collect::<Result<Vec<i64>, ParseIntError>>()
         .map_err(|e| {
             (
                 StatusCode::BAD_REQUEST,
@@ -13,7 +13,7 @@ async fn cube_bits(Path(path): Path<String>) -> Result<String, (StatusCode, Stri
             )
         })?
         .into_iter()
-        .reduce(u32::bitxor)
+        .reduce(i64::bitxor)
         .ok_or((StatusCode::BAD_REQUEST, "need at least one int".to_string()))?
         .pow(3)
         .to_string())

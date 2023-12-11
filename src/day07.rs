@@ -29,14 +29,14 @@ async fn decode_endpoint(jar: CookieJar) -> Result<Vec<u8>, (StatusCode, String)
 
 #[derive(Deserialize)]
 struct BakeRequest {
-    recipe: HashMap<String, u32>,
-    pantry: HashMap<String, u32>,
+    recipe: HashMap<String, i64>,
+    pantry: HashMap<String, i64>,
 }
 
 #[derive(Serialize)]
 struct BakeResponse {
-    cookies: u32,
-    pantry: HashMap<String, u32>,
+    cookies: i64,
+    pantry: HashMap<String, i64>,
 }
 
 async fn bake(jar: CookieJar) -> Result<Json<BakeResponse>, (StatusCode, String)> {
@@ -45,6 +45,7 @@ async fn bake(jar: CookieJar) -> Result<Json<BakeResponse>, (StatusCode, String)
 
     let cookies = recipe
         .iter()
+        .filter(|(_, v)| **v != 0)
         .map(|(k, v)| pantry.get(k).unwrap_or(&0) / v)
         .min()
         .ok_or((
