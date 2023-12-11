@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-axum = "0.7.2"
+axum = { version = "0.7.2", features = ["multipart"] }
 shuttle-axum = { version = "0.35.0", default-features = false, features = [
     "axum-0-7",
 ] }
@@ -22,3 +22,5 @@ automod = "1.0"
 base64 = "0.21.5"
 axum-extra = { version = "0.9.0", features = ["cookie"] }
 reqwest = { version = "0.11.22", features = ["json"] }
+tower-http = { version = "0.5.0", features = ["fs"] }
+image = "0.24.7"
