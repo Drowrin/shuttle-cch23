@@ -29,3 +29,4 @@ uuid = "1.6.1"
 chrono = "0.4.31"
 shuttle-shared-db = { version = "0.35.1", features = ["postgres", "sqlx"] }
 sqlx = "0.7.3"
+askama = "0.12.1"
