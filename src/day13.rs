@@ -77,12 +77,12 @@ async fn popular(State(pool): State<PgPool>) -> Json<HashMap<String, Option<Stri
         "popular".to_string(),
         match sqlx::query(
             "
-        SELECT gift_name
-        FROM orders
-        GROUP BY gift_name
-        ORDER BY SUM(quantity) DESC
-        LIMIT 1;
-        ",
+            SELECT gift_name
+            FROM orders
+            GROUP BY gift_name
+            ORDER BY SUM(quantity) DESC
+            LIMIT 1;
+            ",
         )
         .fetch_one(&pool)
         .await
