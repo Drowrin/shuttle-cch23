@@ -42,6 +42,9 @@ pub struct Order {
 }
 
 pub async fn orders(State(pool): State<PgPool>, Json(orders): Json<Vec<Order>>) {
+    if orders.len() == 0 {
+        return;
+    }
     sqlx::QueryBuilder::new("INSERT INTO orders (id, region_id, gift_name, quantity) ")
         .push_values(orders, |mut builder, order| {
             builder
