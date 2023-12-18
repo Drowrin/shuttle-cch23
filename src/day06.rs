@@ -2,6 +2,7 @@ use axum::routing;
 use axum::Json;
 use axum::Router;
 use serde::Serialize;
+use sqlx::PgPool;
 
 #[derive(Serialize, Debug)]
 struct ElfResponse {
@@ -30,6 +31,6 @@ async fn elf_on_a_shelf(body: String) -> Json<ElfResponse> {
     Json(r)
 }
 
-pub fn get_routes() -> Router {
+pub fn get_routes() -> Router<PgPool> {
     Router::new().route("/6", routing::post(elf_on_a_shelf))
 }

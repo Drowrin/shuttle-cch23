@@ -1,6 +1,7 @@
 use axum::{http::StatusCode, routing, Json, Router};
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
+use sqlx::PgPool;
 
 #[derive(Deserialize)]
 struct Params {
@@ -143,7 +144,7 @@ async fn game(Json(Params { input }): Json<Params>) -> NaughtyOrNice {
     }));
 }
 
-pub fn get_routes() -> Router {
+pub fn get_routes() -> Router<PgPool> {
     Router::new()
         .route("/15/nice", routing::post(nice))
         .route("/15/game", routing::post(game))

@@ -1,4 +1,5 @@
 use axum::{extract::Path, http::StatusCode, routing::get, Router};
+use sqlx::PgPool;
 use std::{num::ParseIntError, ops::BitXor};
 
 async fn cube_bits(Path(path): Path<String>) -> Result<String, (StatusCode, String)> {
@@ -19,6 +20,6 @@ async fn cube_bits(Path(path): Path<String>) -> Result<String, (StatusCode, Stri
         .to_string())
 }
 
-pub fn get_routes() -> Router {
+pub fn get_routes() -> Router<PgPool> {
     Router::new().route("/1/*path", get(cube_bits))
 }

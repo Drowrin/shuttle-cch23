@@ -5,6 +5,7 @@ use axum_extra::extract::cookie::CookieJar;
 use base64::{engine::general_purpose, Engine};
 use serde::{Deserialize, Serialize};
 use serde_json;
+use sqlx::PgPool;
 
 fn decode(encoded: &str) -> Result<Vec<u8>, (StatusCode, String)> {
     general_purpose::STANDARD.decode(encoded).map_err(|e| {
@@ -62,7 +63,7 @@ async fn bake(jar: CookieJar) -> Result<Json<BakeResponse>, (StatusCode, String)
     }))
 }
 
-pub fn get_routes() -> Router {
+pub fn get_routes() -> Router<PgPool> {
     Router::new()
         .route("/7/decode", routing::get(decode_endpoint))
         .route("/7/bake", routing::get(bake))

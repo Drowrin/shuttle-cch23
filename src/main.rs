@@ -26,8 +26,9 @@ async fn main(
         .merge(day08::get_routes())
         .merge(day11::get_routes())
         .merge(day12::get_routes())
-        .merge(day13::get_routes(pool))
+        .merge(day13::get_routes())
         .merge(day14::get_routes())
         .merge(day15::get_routes())
+        .with_state(pool)
         .into())
 }

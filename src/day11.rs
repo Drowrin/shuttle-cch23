@@ -1,5 +1,6 @@
 use axum::{extract::Multipart, routing, Router};
 use image::GenericImageView;
+use sqlx::PgPool;
 use tower_http::services::ServeDir;
 
 async fn red_pixels(mut multipart: Multipart) -> String {
@@ -21,7 +22,7 @@ async fn red_pixels(mut multipart: Multipart) -> String {
     .to_string()
 }
 
-pub fn get_routes() -> Router {
+pub fn get_routes() -> Router<PgPool> {
     Router::new()
         .nest_service("/11/assets", ServeDir::new("assets"))
         .route("/11/red_pixels", routing::post(red_pixels))

@@ -11,6 +11,7 @@ use axum::{
 };
 use chrono::{DateTime, Datelike, Utc};
 use itertools::Itertools;
+use sqlx::PgPool;
 use ulid::Ulid;
 use uuid::Uuid;
 
@@ -86,7 +87,7 @@ async fn weekday(
     ]))
 }
 
-pub fn get_routes() -> Router {
+pub fn get_routes() -> Router<PgPool> {
     Router::new()
         .route("/12/save/:packet_id", routing::post(save))
         .route("/12/load/:packet_id", routing::get(load))

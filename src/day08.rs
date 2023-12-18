@@ -1,5 +1,6 @@
 use axum::{extract::Path, http::StatusCode, routing, Router};
 use serde::Deserialize;
+use sqlx::PgPool;
 
 #[derive(Deserialize)]
 struct Pokemon {
@@ -36,7 +37,7 @@ async fn drop_momentum(Path(id): Path<u64>) -> Result<String, (StatusCode, Strin
     Ok((get_weight(id).await? * DROP.sqrt()).to_string())
 }
 
-pub fn get_routes() -> Router {
+pub fn get_routes() -> Router<PgPool> {
     Router::new()
         .route("/8/weight/:id", routing::get(weight))
         .route("/8/drop/:id", routing::get(drop_momentum))

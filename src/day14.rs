@@ -1,6 +1,7 @@
 use askama::Template;
 use axum::{routing, Json, Router};
 use serde::Deserialize;
+use sqlx::PgPool;
 
 #[derive(Deserialize, Template)]
 #[template(path = "day14.html", escape = "none")]
@@ -22,7 +23,7 @@ async fn safe_html(Json(p): Json<SafeTemplate>) -> String {
     p.render().unwrap()
 }
 
-pub fn get_routes() -> Router {
+pub fn get_routes() -> Router<PgPool> {
     Router::new()
         .route("/14/unsafe", routing::post(unsafe_html))
         .route("/14/safe", routing::post(safe_html))

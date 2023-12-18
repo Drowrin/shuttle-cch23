@@ -1,6 +1,7 @@
 use axum::{http::StatusCode, routing, Json, Router};
 use ordered_float::OrderedFloat;
 use serde::{Deserialize, Serialize};
+use sqlx::PgPool;
 
 #[derive(Deserialize)]
 struct Reindeer {
@@ -95,7 +96,7 @@ async fn contest(
     Ok(Json(Summary::new(&herd)?))
 }
 
-pub fn get_routes() -> Router {
+pub fn get_routes() -> Router<PgPool> {
     Router::new()
         .route("/4/strength", routing::post(strength))
         .route("/4/contest", routing::post(contest))

@@ -34,14 +34,14 @@ async fn reset(State(pool): State<PgPool>) {
 }
 
 #[derive(Deserialize)]
-struct Order {
+pub struct Order {
     id: i32,
     region_id: i32,
     gift_name: String,
     quantity: i32,
 }
 
-async fn orders(State(pool): State<PgPool>, Json(orders): Json<Vec<Order>>) {
+pub async fn orders(State(pool): State<PgPool>, Json(orders): Json<Vec<Order>>) {
     sqlx::QueryBuilder::new("INSERT INTO orders (id, region_id, gift_name, quantity) ")
         .push_values(orders, |mut builder, order| {
             builder
@@ -93,12 +93,11 @@ async fn popular(State(pool): State<PgPool>) -> Json<HashMap<String, Option<Stri
     )]))
 }
 
-pub fn get_routes(pool: PgPool) -> Router {
+pub fn get_routes() -> Router<PgPool> {
     Router::new()
         .route("/13/sql", routing::get(sql))
         .route("/13/reset", routing::post(reset))
         .route("/13/orders", routing::post(orders))
         .route("/13/orders/total", routing::get(total))
         .route("/13/orders/popular", routing::get(popular))
-        .with_state(pool)
 }
