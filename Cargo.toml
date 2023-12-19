@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-axum = { version = "0.7.2", features = ["multipart"] }
+axum = { version = "0.7.2", features = ["multipart", "ws"] }
 shuttle-axum = { version = "0.35.0", default-features = false, features = [
     "axum-0-7",
 ] }
@@ -32,3 +32,4 @@ sqlx = "0.7.3"
 askama = "0.12.1"
 unic = "0.9.0"
 sha256 = "1.4.0"
+futures = "0.3.29"

@@ -9,7 +9,7 @@ test day="--all":
         cargo shuttle run &
         sleep 3
         echo -e "\n${PURPLE}Executing Tests${NO_COLOR}"
-        cch23-validator ${day}
+        cch23-validator ${day} --url http://127.0.0.1:8000
         kill $!
     fi
 
