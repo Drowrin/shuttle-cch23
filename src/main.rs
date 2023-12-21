@@ -14,6 +14,7 @@ mod day14;
 mod day15;
 mod day18;
 mod day19;
+mod day20;
 
 #[shuttle_runtime::main]
 async fn main(
@@ -33,6 +34,7 @@ async fn main(
         .merge(day15::get_routes())
         .merge(day18::get_routes())
         .merge(day19::get_routes())
+        .merge(day20::get_routes())
         .with_state(pool)
         .into())
 }
