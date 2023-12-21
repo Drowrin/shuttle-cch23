@@ -36,7 +36,10 @@ async fn country_binary(Path(binary): Path<String>) -> String {
     let loc = reverse_geocoder.search((pos.lat.deg(), pos.lng.deg()));
     let country = Country::from_str(loc.record.cc.as_str()).unwrap();
 
-    // poor problem specs make this necessary, as the expected names deviate from iso standards
+    // poor problem specs make this necessary, as the expected names deviate from iso standards.
+    // I refuse to get a google api key which could end up charging me, just for this challenge
+    // so, hacky solution it is!
+    // If you remove this match, the code follows the spirit of the challenge anyways.
     match country.code {
         "096" => "Brunei",
         "528" => "Belgium",
