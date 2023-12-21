@@ -4,6 +4,7 @@ use sqlx::PgPool;
 mod day00;
 mod day01;
 mod day04;
+mod day05;
 mod day06;
 mod day07;
 mod day08;
@@ -23,6 +24,7 @@ async fn main(
     Ok(Router::new()
         .merge(day00::get_routes())
         .merge(day01::get_routes())
+        .merge(day05::get_routes())
         .merge(day04::get_routes())
         .merge(day06::get_routes())
         .merge(day07::get_routes())
