@@ -54,7 +54,7 @@ async fn rocket(body: String) -> String {
     let src: usize = 0;
     let dst: usize = num_stars - 1;
 
-    let (path, _) = dijkstra(
+    let (path, jumps) = dijkstra(
         &src,
         |p| portals[p].iter().map(|v| (*v, 1)).collect::<Vec<_>>(),
         |p| *p == dst,
@@ -67,7 +67,7 @@ async fn rocket(body: String) -> String {
         .map(|(f, t)| stars[*f].distance(&stars[*t]))
         .sum();
 
-    format!("{} {:.3}", path.len() - 1, distance)
+    format!("{} {:.3}", jumps, distance)
 }
 
 pub fn get_routes() -> Router<PgPool> {
